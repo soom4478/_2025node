@@ -8,3 +8,9 @@ function 함수(매개변수) {
     console.log('함수 ' + 매개변수);
 }
 익명함수('s');
+
+// arrow function
+익명함수 = (매개변수) => {
+    console.log('함수 ' + 매개변수);
+}
+익명함수('s');
