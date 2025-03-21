@@ -4,14 +4,16 @@ const express = require('express');
 // express 애플리케이션을 생성합니다.
 const app = express();
 
-app.get('/s', (req, res) => {
+app.use(express.json());
+
+app.get('/sw', (req, res) => {
   // 응답 본문에 'Hello, World!'를 보냅니다.
-  res.send('get s');
+  res.send('get sw');
 });
 
-app.post('/s', (req, res) => {
+app.post('/sw', (req, res) => {
   // 응답 본문에 'Hello, World!'를 보냅니다.
-  res.send('post s');
+  res.send(req.body);
 });
 
 // 서버가 포트 3000에서 요청을 대기합니다.
