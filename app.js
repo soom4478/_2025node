@@ -1,25 +1,12 @@
 // express 모듈을 가져옵니다.
 const express = require('express');
+const swRouter = require('./routes/sw');
 
 // express 애플리케이션을 생성합니다.
 const app = express();
 
 app.use(express.json());
-
-app.get('/sw', (req, res) => {
-  // 응답 본문에 'Hello, World!'를 보냅니다.
-  res.send('get sw');
-});
-
-app.get('/sw/:person', (req, res) => {
-  // 응답 본문에 'Hello, World!'를 보냅니다.
-  res.send(req.params.person);
-});
-
-app.post('/sw', (req, res) => {
-  // 응답 본문에 'Hello, World!'를 보냅니다.
-  res.send(req.body);
-});
+app.use('/sw', swRouter); // /sw 경로에 대해 swRouter를 사용하겠다는 의미
 
 // 서버가 포트 3000에서 요청을 대기합니다.
 app.listen(3000, () => {
