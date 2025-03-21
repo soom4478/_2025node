@@ -11,6 +11,11 @@ app.get('/sw', (req, res) => {
   res.send('get sw');
 });
 
+app.get('/sw/:person', (req, res) => {
+  // 응답 본문에 'Hello, World!'를 보냅니다.
+  res.send(req.params.person);
+});
+
 app.post('/sw', (req, res) => {
   // 응답 본문에 'Hello, World!'를 보냅니다.
   res.send(req.body);
