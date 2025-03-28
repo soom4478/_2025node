@@ -14,11 +14,8 @@ const db = mysql.createConnection({
     database: process.env.DB_NAME
 });
 
-travelList = ['뉴욕', '파리', '서울', '도쿄'];
-
 app.set('view engine', 'ejs');
-// _dirname : 현재 파일이 속한 절대경로
-// path.join을 사용하면 운영체제에 맞추어 경로 구분자(/, \)를 알아서 정해준다
+
 app.set('views', path.join(__dirname, 'views'));
 
 db.connect(err => {
@@ -34,7 +31,16 @@ app.get('/', (req, res) => {
 });
 
 app.get('/travel', (req, res) => {
-    res.render('travel', {travelList});
+    const query = 'SELECT id, name FROM travellist';
+    db.query(query, (err, results) => {
+        if(err) {
+            console.error('데이터베이스 뭐리 실패');
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        const travelList = results;
+        res.render('travel', { travelList });
+    });
 });
 
 // 서버가 포트 3000에서 요청을 대기합니다.
