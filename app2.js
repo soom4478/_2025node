@@ -61,6 +61,11 @@ app.get('/travel/:id', (req, res) => {
     })
 })
 
+// use : 모든 method에 대해, 경로가 없으면? -> 모든 경로에 대해
+app.use((req, res) => {
+    res.status(404).send('404 not found');
+});
+
 // 서버가 포트 3000에서 요청을 대기합니다.
 app.listen(3000, () => {
     console.log('서버가 http://localhost:3000에서 실행 중입니다.');
