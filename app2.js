@@ -14,6 +14,9 @@ const db = mysql.createConnection({
     database: process.env.DB_NAME
 });
 
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
 app.set('view engine', 'ejs');
 
 app.set('views', path.join(__dirname, 'views'));
@@ -31,10 +34,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/travel', (req, res) => {
-    const query = 'SELECT id, name FROM travellist';
-    db.query(query, (err, results) => {
+    const _query = 'SELECT id, name FROM travellist';
+    db.query(_query, (err, results) => {
         if(err) {
-            console.error('데이터베이스 뭐리 실패');
+            console.error('데이터베이스 쿼리 실패');
             res.status(500).send('Internal Server Error');
             return;
         }
@@ -60,6 +63,19 @@ app.get('/travel/:id', (req, res) => {
         res.render('travelDetail', {travel});
     })
 })
+
+app.post('/travel', (req, res) => {
+    const {name} = req.body; // body안 name 속성만 가져옴. const name = req.body.name과 동일
+    const _query = 'INSERT INTO travellist (name) VALUES (?)';
+    db.query(_query, [name], (err, results) => {
+        if(err) {
+            console.error('데이터베이스 쿼리 실패');
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.redirect('/travel');
+    });
+});
 
 // use : 모든 method에 대해, 경로가 없으면? -> 모든 경로에 대해
 app.use((req, res) => {
