@@ -3,6 +3,8 @@ const path = require('path');
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
 
+const port = 3000;
+
 dotenv.config();
 const app = express();
 
@@ -105,6 +107,6 @@ app.use((req, res) => {
 });
 
 // 서버가 포트 3000에서 요청을 대기합니다.
-app.listen(3000, () => {
-    console.log('서버가 http://localhost:3000에서 실행 중입니다.');
+app.listen(port, () => {
+    console.log(`서버가 http://localhost:${port}에서 실행 중입니다.`);
 });
